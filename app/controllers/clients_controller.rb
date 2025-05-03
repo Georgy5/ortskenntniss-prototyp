@@ -4,6 +4,13 @@ class ClientsController < ApplicationController
   # GET /clients or /clients.json
   def index
     @clients = Client.all
+    # Only filter clients with coordinates using "geocoded" scope
+    @markers = @clients.geocoded.map do |client|
+      {
+        lat: client.latitude,
+        lng: client.longitude
+      }
+    end
   end
 
   # GET /clients/1 or /clients/1.json
